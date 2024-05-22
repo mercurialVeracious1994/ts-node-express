@@ -1,0 +1,53 @@
+import {DataTypes, Model, Optional, UUIDV4} from 'sequelize';
+import {sequelize} from '../config/database';
+
+interface ProductAttributes {
+    id: string;
+    productId: string;
+    name: string;
+    price: number;
+}
+
+interface ProductCreationAttributes
+    extends Optional<ProductAttributes, 'id'> {
+}
+
+class Product
+    extends Model<ProductAttributes, ProductCreationAttributes>
+    implements Product {
+    public id!: string;
+    public name!: string;
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
+}
+
+Product.init(
+    {
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: UUIDV4,
+            primaryKey: true,
+        },
+        productId: {
+            type: DataTypes.STRING(5),
+            allowNull: false,
+            unique: true
+        },
+        name: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+        },
+        price: {
+            type: DataTypes.DECIMAL,
+            allowNull: false,
+        }
+    },
+    {
+        sequelize,
+        modelName: 'products',
+        tableName: 'product',
+        timestamps: true,
+    },
+);
+
+export {Product, ProductAttributes, ProductCreationAttributes};

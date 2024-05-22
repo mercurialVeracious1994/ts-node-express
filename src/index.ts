@@ -1,7 +1,13 @@
 import express, {Request, Response} from 'express';
-import {PORT} from "./config";
+import http from 'http';
+import bodyParser from "body-parser";
+import productRoute from "./routes/productRoute";
+import dotenv from "dotenv";
 
 
+dotenv.config();
+
+const PORT = Number(process.env.API_PORT);
 const app = express();
 
 app.get('/', async (req: Request, res: Response) => {
@@ -9,4 +15,12 @@ app.get('/', async (req: Request, res: Response) => {
         message: 'Hello World'
     });
 });
-app.listen(PORT, () => console.log(`Server is connected on ${PORT}`))
+//
+
+
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json());
+app.use('/products', productRoute);
+
+const server = http.createServer(app);
+server.listen(PORT, () => console.log(`Server is connected on ${PORT}`))
