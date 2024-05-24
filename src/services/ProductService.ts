@@ -1,64 +1,53 @@
 import {Product, ProductCreationAttributes} from "../../database/models/Product";
 import {StatusCodes} from 'http-status-codes';
 import ApiError from "../error/ApiError";
+import {logger} from "../utility/Logger";
 
 interface IProductService {
-    getById(id: string): Promise<Product | null>
+    getById(id: string): Promise<Product | ApiError>
 
-    getAllProducts(): Promise<Product[] | null>
+    getAllProducts(): Promise<Product[] | ApiError>
 
-    createProduct(payload: ProductCreationAttributes): Promise<Product>
+    createProduct(payload: ProductCreationAttributes): Promise<Product | ApiError>
 
-    updateProduct(id: string, payload: Partial<ProductCreationAttributes>): Promise<Product>
+    updateProduct(id: string, payload: Partial<ProductCreationAttributes>): Promise<Product | ApiError>
 }
 
 export const ProductService: IProductService = {
-    getById: async (id: string): Promise<Product | null> => {
-        try {
-            const product = await Product.findByPk(id);
-            if (!product) {
-                throw new ApiError(StatusCodes.NOT_FOUND, 'Product not found');
-            }
-            return product;
-        } catch (error) {
-            console.log(error);
-            throw error;
+    getById: async (id: string): Promise<Product | ApiError> => {
+        const product = await Product.findByPk(id);
+        if (!product) {
+            const error = new ApiError(StatusCodes.NOT_FOUND, 'Product not found');
+            logger.error(error);
+            return error;
         }
+        return product;
     },
     getAllProducts: async () => {
-        try {
-            const products = await Product.findAll();
-            if (!products) {
-                throw new ApiError(StatusCodes.NOT_FOUND, ' No Product found');
-            }
-            return products;
-        } catch (error) {
-            console.log(error);
-            throw error;
+        const products = await Product.findAll();
+        if (!products) {
+            const error = new ApiError(StatusCodes.NOT_FOUND, ' No Product found');
+            logger.error(error);
+            return error;
         }
+        return products;
     },
     createProduct: async (payload: ProductCreationAttributes) => {
-        try {
-            return Product.create(payload);
-
-        } catch (error) {
-            console.log(error);
-            throw error;
+        const product = Product.create(payload);
+        if (!product) {
+            const error = new ApiError(StatusCodes.BAD_REQUEST, ' No Product Created');
+            logger.error(error);
+            return error;
         }
+        return product;
     },
     updateProduct: async (id: string, payload: Partial<ProductCreationAttributes>) => {
-        try {
-            const product = await Product.findByPk(id);
-            if (!product) {
-                throw new ApiError(
-                    StatusCodes.NOT_FOUND,
-                    'Enquiry not found',
-                );
-            }
-            return product.update(payload);
-        } catch (error) {
-            console.log(error);
-            throw error;
+        const product = await Product.findByPk(id);
+        if (!product) {
+            const error = new ApiError(StatusCodes.NOT_FOUND, ' No Product found');
+            logger.error(error);
+            return error;
         }
+        return product.update(payload);
     }
 }

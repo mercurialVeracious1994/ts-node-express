@@ -14,9 +14,11 @@ interface ProductCreationAttributes
 
 class Product
     extends Model<ProductAttributes, ProductCreationAttributes>
-    implements Product {
+    implements ProductAttributes {
     public id!: string;
     public name!: string;
+    public productId!: string;
+    public price!: number;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
