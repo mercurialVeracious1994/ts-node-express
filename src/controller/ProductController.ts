@@ -1,4 +1,4 @@
-import {ProductService} from "../services/ProductService";
+import {ProductService} from "../service/ProductService";
 import {Request, Response} from "express";
 import {IProductRequest} from "../request/productRequest";
 import ApiError from "../error/ApiError";
