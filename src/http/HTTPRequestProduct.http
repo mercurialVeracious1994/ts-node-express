@@ -1,0 +1,40 @@
+# curl --location 'http://localhost:3000/products'
+#--header 'Content-Type: application/json'
+#--data '{
+#    "name": "Dates",
+#    "price": "299.9"
+#}'
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "name": "GroundNut",
+  "price": "209.9"
+}
+
+###
+
+# curl --location --request PATCH 'http://localhost:3000/products?id=1689d347-d283-4ab0-ae8a-ae4099c2195b'
+#--header 'Content-Type: application/json'
+#--data '{
+#    "name": "FlexSeeds",
+#    "price": "200.8"
+#}'
+PATCH http://localhost:3000/products?id=1689d347-d283-4ab0-ae8a-ae4099c2195b
+Content-Type: application/json
+
+{
+  "name": "FlexSeeds",
+  "price": "200.8"
+}
+
+###
+
+### Get product by id
+GET http://localhost:3000/products?id={{productId}}
+Accept: application/json
+
+### Get all products
+GET http://localhost:3000/products
+
+
