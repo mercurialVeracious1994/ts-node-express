@@ -46,14 +46,21 @@ export const isStringOptional = (field: string): ValidationChain => {
         .bail()
 }
 
+export const isAlphanumericOptional = (field: string): ValidationChain => {
+    return check(field)
+        .optional()
+        .isString()
+        .withMessage({error: 'not a string', detail: 'provide a string value'})
+        .bail()
+}
 
-export const isIntegerRequired = (field: string): ValidationChain => {
+export const isAlphanumericRequired = (field: string): ValidationChain => {
     return check(field)
         .exists()
         .withMessage({error: `${field} is missing`, detail: `${field} is required`})
-        .isInt()
-        .withMessage({error: 'not an integer', detail: 'provide an integer value'})
-        .bail();
+        .isString()
+        .withMessage({error: 'not a string', detail: 'provide a string value'})
+        .bail()
 }
 
 

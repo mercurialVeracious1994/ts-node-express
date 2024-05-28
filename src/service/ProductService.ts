@@ -15,6 +15,7 @@ interface IProductService {
 
 export const ProductService: IProductService = {
     getById: async (id: string): Promise<Product | ApiError> => {
+        console.log(id, "-------------------------");
         const product = await Product.findByPk(id);
         if (!product) {
             const error = new ApiError(StatusCodes.NOT_FOUND, 'Product not found');

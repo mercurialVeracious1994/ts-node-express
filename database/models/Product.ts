@@ -3,7 +3,6 @@ import {sequelize} from '../config/database';
 
 interface ProductAttributes {
     id: string;
-    productId: string;
     name: string;
     price: number;
 }
@@ -17,7 +16,7 @@ class Product
     implements ProductAttributes {
     public id!: string;
     public name!: string;
-    public productId!: string;
+    // public productId!: string;
     public price!: number;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
@@ -29,11 +28,6 @@ Product.init(
             type: DataTypes.UUID,
             defaultValue: UUIDV4,
             primaryKey: true,
-        },
-        productId: {
-            type: DataTypes.STRING(5),
-            allowNull: false,
-            unique: true
         },
         name: {
             type: DataTypes.STRING(100),

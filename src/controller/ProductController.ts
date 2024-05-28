@@ -4,8 +4,9 @@ import {IProductRequest} from "../request/productRequest";
 import ApiError from "../error/ApiError";
 
 export const getProductByID = async (req: Request, res: Response) => {
-    const id = (req.params.id) as string || "";
-    const result = await ProductService.getById(id);
+    const id = (req.params.id) || "";
+    console.log(id, "-----------------------");
+    const result = await ProductService.getById(id as string);
     if (result instanceof ApiError) {
         res.status(result.statusCode).json(result)
     }

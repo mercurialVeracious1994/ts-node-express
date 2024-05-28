@@ -1,13 +1,13 @@
 import {isDecimalOptional, isDecimalRequired, isStringOptional, isStringRequired} from "./common";
 
 export const productCreateValidation = [
-    isStringRequired('productId'),
+    // isAlphanumericRequired('productId'),
     isStringRequired('name'),
     isDecimalRequired('price')
 ];
 
 export const productUpdateValidation = [
-    isStringOptional('productId'),
+    // isAlphanumericOptional('productId'),
     isStringOptional('name'),
     isDecimalOptional('price')
 ]
