@@ -1,11 +1,12 @@
 import {DataTypes, Model, Optional, UUIDV4} from 'sequelize';
 // @ts-ignore
 import {sequelize} from '../config/database';
+// @ts-ignore
+import {Post} from "./Post";
 
 interface UserAttributes {
     id: string;
     name: string;
-    postId: string[];
 }
 
 interface UserCreationAttributes
@@ -17,7 +18,10 @@ class User
     implements UserAttributes {
     public id!: string;
     public name!: string;
-    public postId!: [string];
+
+    public static associate() {
+        User.hasMany(Post, {foreignKey: 'authorId'});
+    }
 }
 
 User.init(
@@ -31,9 +35,6 @@ User.init(
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-        postId: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
-        }
     },
     {
         sequelize,

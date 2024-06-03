@@ -1,19 +1,33 @@
 const {DataTypes} = require("sequelize");
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable("user", {
+        await queryInterface.createTable("post", {
             id: {
                 allowNull: false,
                 primaryKey: true,
                 type: DataTypes.UUID
             },
-            name: {
+            title: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            postId: {
-                type: DataTypes.ARRAY(DataTypes.UUID),
+            content: {
+                type: DataTypes.STRING,
                 allowNull: false,
+            },
+            isPublished: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false
+            },
+            authorId: {
+                type: DataTypes.UUID,
+                allowNull: false,
+                references: {
+                    model: 'user',
+                    key: 'id'
+                },
+                onUpdate: 'CASCADE',
+                onDelete: 'CASCADE'
             },
             createdAt: {
                 allowNull: false,
@@ -26,6 +40,6 @@ module.exports = {
         })
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable("user");
+        await queryInterface.dropTable("post");
     }
 };

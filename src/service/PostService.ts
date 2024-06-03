@@ -3,6 +3,7 @@ import {Post, PostCreationAttributes} from "../../database/models/Post";
 import {StatusCodes} from 'http-status-codes';
 import ApiError from "../error/ApiError";
 import {logger} from "../utility/Logger";
+import {User} from "../../database/models/User";
 
 interface IPostService {
     getById(id: string): Promise<Post | ApiError>
@@ -16,7 +17,7 @@ interface IPostService {
 
 export const PostService: IPostService = {
     getById: async (id: string): Promise<Post | ApiError> => {
-        const post = await Post.findByPk(id);
+        const post = await Post.findByPk(id, {include: User});
         if (!post) {
             const error = new ApiError(StatusCodes.NOT_FOUND, 'Post not found');
             logger.error(error);
@@ -25,7 +26,7 @@ export const PostService: IPostService = {
         return post;
     },
     getAllPosts: async () => {
-        const posts = await Post.findAll();
+        const posts = await Post.findAll({include: User});
         if (!posts) {
             const error = new ApiError(StatusCodes.NOT_FOUND, ' No Post found');
             logger.error(error);

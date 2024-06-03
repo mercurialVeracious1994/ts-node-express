@@ -1,18 +1,13 @@
 # curl --location --request PATCH 'http://localhost:3000/users?id=cf577fd7-3fd3-4266-80d9-45d9e19f068b'
 #--header 'Content-Type: application/json'
 #--data '{
-#    "name": "User",
-#    "postId": ["a8f211c9-1652-4ce5-a909-c881797af89c","05574427-6b1b-47dc-80a0-67f641f61ced"]
+#    "name": "User"
 #}'
 PATCH http://localhost:3000/users?id=cf577fd7-3fd3-4266-80d9-45d9e19f068b
 Content-Type: application/json
 
 {
-  "name": "User",
-  "postId": [
-    "a8f211c9-1652-4ce5-a909-c881797af89c",
-    "05574427-6b1b-47dc-80a0-67f641f61ced"
-  ]
+  "name": "User"
 }
 
 ###
@@ -20,17 +15,13 @@ Content-Type: application/json
 # curl --location 'http://localhost:3000/users'
 #--header 'Content-Type: application/json'
 #--data '{
-#    "name": "Mittal",
-#    "postId": ["a8f211c9-1652-4ce5-a909-c881797af89c"]
+#    "name": "Mittal"
 #}'
 POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "name": "Mittal",
-  "postId": [
-    "a8f211c9-1652-4ce5-a909-c881797af89c"
-  ]
+  "name": "Mittal"
 }
 
 ###

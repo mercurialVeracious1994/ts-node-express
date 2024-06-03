@@ -1,10 +1,11 @@
-import express, {Request, Response} from 'express';
+import express from 'express';
 import http from 'http';
 import bodyParser from "body-parser";
 import productRoute from "./routes/productRoute";
 import dotenv from "dotenv";
 import postRoute from "./routes/postRoute";
 import userRoute from "./routes/userRoute";
+import {buildAssociation} from "../database/models";
 
 
 dotenv.config();
@@ -12,14 +13,7 @@ dotenv.config();
 const PORT = Number(process.env.API_PORT);
 const app = express();
 
-app.get('/', async (req: Request, res: Response) => {
-    res.status(200).json({
-        message: 'Hello World'
-    });
-});
-//
-
-
+buildAssociation();
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json());
 app.use('/products', productRoute);

@@ -1,11 +1,12 @@
 // @ts-ignore
-import {User, UserCreationAttributes} from "../../database/models/User";
+import {User, UserAttributes, UserCreationAttributes} from "../../database/models/User";
 import {StatusCodes} from 'http-status-codes';
 import ApiError from "../error/ApiError";
 import {logger} from "../utility/Logger";
+import {Post} from "../../database/models/Post";
 
 interface IUserService {
-    getById(id: string): Promise<User | ApiError>
+    getById(id: string): Promise<UserAttributes | ApiError>
 
     getAllUsers(): Promise<User[] | ApiError>
 
@@ -15,17 +16,18 @@ interface IUserService {
 }
 
 export const UserService: IUserService = {
-    getById: async (id: string): Promise<User | ApiError> => {
-        const user = await User.findByPk(id);
+    getById: async (id: string): Promise<UserAttributes | ApiError> => {
+        const user = await User.findByPk(id, {include: Post});
+
         if (!user) {
             const error = new ApiError(StatusCodes.NOT_FOUND, 'User not found');
             logger.error(error);
             return error;
         }
-        return user;
+        return user.dataValues;
     },
     getAllUsers: async () => {
-        const users = await User.findAll();
+        const users = await User.findAll({include: Post});
         if (!users) {
             const error = new ApiError(StatusCodes.NOT_FOUND, ' No User found');
             logger.error(error);

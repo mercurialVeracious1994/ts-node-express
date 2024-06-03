@@ -1,6 +1,8 @@
 import {DataTypes, Model, Optional, UUIDV4} from 'sequelize';
 // @ts-ignore
 import {sequelize} from '../config/database';
+// @ts-ignore
+import {User} from "./User";
 
 interface PostAttributes {
     id: string;
@@ -22,6 +24,10 @@ class Post
     public content!: string;
     public isPublished!: boolean;
     public authorId!: string;
+
+    public static associate() {
+        Post.belongsTo(User, {foreignKey: 'authorId'});
+    }
 }
 
 Post.init(
@@ -44,8 +50,12 @@ Post.init(
             allowNull: false,
         },
         authorId: {
-            type: DataTypes.STRING,
+            type: DataTypes.UUID,
             allowNull: false,
+            references: {
+                model: 'users',
+                key: 'id',
+            },
         }
     },
     {
