@@ -5,7 +5,6 @@ import {validate} from "../validation/common";
 
 const router = Router();
 
-
 router.get('/:id', getProductByID);
 
 router.get('/', getAllProduct);

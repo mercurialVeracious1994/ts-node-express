@@ -33,6 +33,21 @@ export const isStringRequired = (field: string): ValidationChain => {
         .bail();
 }
 
+export const isArrayOptional = (field: string): ValidationChain => {
+    return check(field)
+        .optional()
+        .isArray()
+        .withMessage({error: 'not a an array', detail: 'provide a array value'})
+        .bail()
+}
+export const isArrayRequired = (field: string): ValidationChain => {
+    return check(field)
+        .exists()
+        .isArray()
+        .withMessage({error: 'not a an array', detail: 'provide a array value'})
+        .bail()
+}
+
 export const isStringOptional = (field: string): ValidationChain => {
     return check(field)
         .optional()
@@ -45,6 +60,15 @@ export const isStringOptional = (field: string): ValidationChain => {
         })
         .bail()
 }
+
+export const isBooleanOptional = (field: string): ValidationChain => {
+    return check(field)
+        .optional()
+        .isBoolean()
+        .withMessage({error: 'not a boolean', detail: 'provide a boolean value'})
+        .bail()
+}
+
 
 export const isAlphanumericOptional = (field: string): ValidationChain => {
     return check(field)
@@ -62,6 +86,14 @@ export const isAlphanumericRequired = (field: string): ValidationChain => {
         .withMessage({error: 'not a string', detail: 'provide a string value'})
         .bail()
 }
+export const isBooleanRequired = (field: string): ValidationChain => {
+    return check(field)
+        .exists()
+        .withMessage({error: `${field} is missing`, detail: `${field} is required`})
+        .isBoolean()
+        .withMessage({error: 'not a boolean', detail: 'provide a boolean value'})
+        .bail()
+}
 
 
 export const validate = (req: Request, res: Response, next: Function) => {
@@ -70,7 +102,6 @@ export const validate = (req: Request, res: Response, next: Function) => {
     if (errors.isEmpty()) {
         return next()
     }
-    // const extractedErrors = []
     const validationError = errors.mapped();
     const validationErrors = Object.keys(validationError).map(key => ({[`${key}`]: validationError[`${key}`].msg}));
     return res.status(422).json(validationErrors)

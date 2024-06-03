@@ -1,3 +1,4 @@
+// @ts-ignore
 import {Product, ProductCreationAttributes} from "../../database/models/Product";
 import {StatusCodes} from 'http-status-codes';
 import ApiError from "../error/ApiError";
