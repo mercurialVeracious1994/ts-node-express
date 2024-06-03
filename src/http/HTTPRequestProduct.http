@@ -1,3 +1,100 @@
+# curl --location --request PATCH 'http://localhost:3000/users?id=cf577fd7-3fd3-4266-80d9-45d9e19f068b'
+#--header 'Content-Type: application/json'
+#--data '{
+#    "name": "User",
+#    "postId": ["a8f211c9-1652-4ce5-a909-c881797af89c","05574427-6b1b-47dc-80a0-67f641f61ced"]
+#}'
+PATCH http://localhost:3000/users?id=cf577fd7-3fd3-4266-80d9-45d9e19f068b
+Content-Type: application/json
+
+{
+  "name": "User",
+  "postId": [
+    "a8f211c9-1652-4ce5-a909-c881797af89c",
+    "05574427-6b1b-47dc-80a0-67f641f61ced"
+  ]
+}
+
+###
+
+# curl --location 'http://localhost:3000/users'
+#--header 'Content-Type: application/json'
+#--data '{
+#    "name": "Mittal",
+#    "postId": ["a8f211c9-1652-4ce5-a909-c881797af89c"]
+#}'
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Mittal",
+  "postId": [
+    "a8f211c9-1652-4ce5-a909-c881797af89c"
+  ]
+}
+
+###
+
+# curl --location 'http://localhost:3000/users'
+GET http://localhost:3000/users
+
+###
+
+# curl --location 'http://localhost:3000/users/cf577fd7-3fd3-4266-80d9-45d9e19f068b'
+GET http://localhost:3000/users/cf577fd7-3fd3-4266-80d9-45d9e19f068b
+
+###
+
+# curl --location --request PATCH 'http://localhost:3000/posts?id=05574427-6b1b-47dc-80a0-67f641f61ced'
+#--header 'Content-Type: application/json'
+#--data '{
+#    "title": "Nation",
+#    "content": "True Nation",
+#    "isPublished": false,
+#    "authorId":"8069bc13-8021-4b41-ae1e-11eb61502bf5"
+#}'
+PATCH http://localhost:3000/posts?id=05574427-6b1b-47dc-80a0-67f641f61ced
+Content-Type: application/json
+
+{
+  "title": "Nation",
+  "content": "True Nation",
+  "isPublished": false,
+  "authorId": "8069bc13-8021-4b41-ae1e-11eb61502bf5"
+}
+
+###
+
+# curl --location 'http://localhost:3000/posts'
+GET http://localhost:3000/posts
+
+###
+
+# curl --location 'http://localhost:3000/posts/a8f211c9-1652-4ce5-a909-c881797af89c'
+GET http://localhost:3000/posts/a8f211c9-1652-4ce5-a909-c881797af89c
+
+###
+
+# curl --location 'http://localhost:3000/posts'
+#--header 'Content-Type: application/json'
+#--data '{
+#    "title": "Nation",
+#    "content": "Nation",
+#    "isPublished": false,
+#    "authorId":"8069bc13-8021-4b41-ae1e-11eb61502bf5"
+#}'
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+  "title": "Nation",
+  "content": "Nation",
+  "isPublished": false,
+  "authorId": "8069bc13-8021-4b41-ae1e-11eb61502bf5"
+}
+
+###
+
 # curl --location 'http://localhost:3000/products'
 #--header 'Content-Type: application/json'
 #--data '{

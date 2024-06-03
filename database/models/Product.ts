@@ -1,10 +1,9 @@
 import {DataTypes, Model, Optional, UUIDV4} from 'sequelize';
 // @ts-ignore
 import {sequelize} from '../config/database';
-import {v4} from "uuid";
 
 interface ProductAttributes {
-    id: typeof v4;
+    id: string;
     name: string;
     price: number;
 }
@@ -16,7 +15,7 @@ interface ProductCreationAttributes
 class Product
     extends Model<ProductAttributes, ProductCreationAttributes>
     implements ProductAttributes {
-    public id!: typeof v4;
+    public id!: string;
     public name!: string;
     public price!: number;
 }

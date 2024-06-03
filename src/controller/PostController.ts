@@ -36,5 +36,5 @@ export const createPost = async (req: Request, res: Response) => {
     if (result instanceof ApiError) {
         res.status(result.statusCode).json(result)
     }
-    res.status(201).json({posts: result});
+    res.status(201).json({post: result});
 }
